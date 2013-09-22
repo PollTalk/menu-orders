@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{%block title%} Welcome to the menu orders {% endblock %}
+
+{%block content%}
+	{% if latest_items %}
+		<ul>
+			{% for menu_item in latest_items %}
+				<li>{{ menu_item.item }} | {{ menu_item.price_per_item }} </li>
+			{% endfor %}
+		</ul>
+			{% else %}
+				<p>No Menu items are available.</p>
+	{% endif %}
+
+{% endblock %}
