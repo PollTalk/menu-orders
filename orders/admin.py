@@ -4,7 +4,7 @@ from .models import Item, Order
 class ItemAdmin(admin.ModelAdmin):
 	ordering = ('-date_created',)
 	search_fields = ['item', 'price_per_item']
-	list_display = ('item', 'price_per_item', 'date_created')
+	list_display = ('item', 'price_per_item', 'category', 'date_created')
 	list_filter = ['date_created', 'category']
 
 class OrderAdmin(admin.ModelAdmin):
