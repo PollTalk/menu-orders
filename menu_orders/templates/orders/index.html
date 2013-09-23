@@ -2,15 +2,97 @@
 
 {%block title%} Welcome to the menu orders {% endblock %}
 
-{%block content%}
-	{% if latest_items %}
-		<ul>
-			{% for menu_item in latest_items %}
-				<li>{{ menu_item.item }} | {{ menu_item.price_per_item }} </li>
-			{% endfor %}
-		</ul>
-			{% else %}
-				<p>No Menu items are available.</p>
-	{% endif %}
+{% block content %}
 
+<div class="container">
+	<form role="form" method="post" action="">
+	<div class="form-group">
+		{% csrf_token %}
+		<ul id="myTab" class="nav nav-tabs nav-justified">
+			<li><a href="#breakfast" data-toggle="tab"><h1><strong>Breakfast</strong></h1></a></li>
+			<li><a href="#lunch" data-toggle="tab"><h1><strong>Lunch</strong></h1></a></li>
+			<li><a href="#snacks" data-toggle="tab"><h1><strong>Snacks</strong></h1></a></li>
+		</ul>
+		<div class="jumbotron">
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade" id="lunch">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+					{% for item in lunch_items %}
+						<tbody>
+							<tr>
+								<td>
+									<label>
+										<input type="checkbox">{{ item }}
+									</label><br>
+								</td>
+								<td>
+									{{ item.price_per_item }}
+								</td>
+							</tr>
+					{% endfor %}
+					</tbody>
+					</table>
+				</div>
+				<div class="tab-pane fade in active" id="breakfast">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+					{% for item in breakfast_items %}
+					<tbody>
+							<tr>
+								<td>
+									<label>
+										<input type="checkbox">{{ item }}
+									</label><br>
+									</td>
+								<td>
+									{{ item.price_per_item }}
+								</td>
+							</tr>
+					{% endfor %}
+					</tbody>
+					</table>
+				</div>
+				<div class="tab-pane fade" id="snacks">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+					{% for item in snacks %}
+					<tbody>
+							<tr>
+								<td>
+									<label>
+										<input type="checkbox">{{ item }}
+									</label><br>
+									</td>
+								<td>
+									{{ item.price_per_item }}
+								</td>
+							</tr>
+					{% endfor %}
+					</tbody>
+					</table>
+				</div>
+			</div>	
+	</div>
+	<button type="submit" class="btn btn-primary">Submit Order</button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	<button type="reset" class="btn btn-warning">Clear Order</button>
+
+	</form>
+</div>
+</div>
 {% endblock %}

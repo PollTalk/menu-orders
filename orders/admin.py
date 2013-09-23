@@ -1,14 +1,21 @@
 from django.contrib import admin
-from .models import Item, Order
+from .models import Item, Order, CategorizeItem, TakeOrder
+
+class TakeOrderInline(admin.TabularInline):
+	model = TakeOrder
+	extra = 1
 
 class ItemAdmin(admin.ModelAdmin):
+	inlines = (TakeOrderInline,)
 	ordering = ('-date_created',)
 	search_fields = ['item', 'price_per_item']
 	list_display = ('item', 'price_per_item', 'category', 'date_created')
 	list_filter = ['date_created', 'category']
 
 class OrderAdmin(admin.ModelAdmin):
-	list_display = ('ordering_time', 'cost_of_order')
+	inlines = (TakeOrderInline,)
+
+	list_display = ('ordering_time', 'cost_of_order' )
 	list_filter = ('ordering_time',)
 	date_heirarchy = 'ordering_time'
 	ordering = ('-ordering_time',)
@@ -16,3 +23,6 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(CategorizeItem)
+
+
