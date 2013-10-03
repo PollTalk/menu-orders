@@ -1,5 +1,5 @@
  .jumbotron {
-              margin-top: 75px;
+              margin-top: 70px;
               text-indent: 30px;
               font-size: 18px;
             }
@@ -8,6 +8,8 @@ li{
     list-style-type: none;
     font-family: "Lucida Grande";
 }
+
+a:focus {outline : none;}
 
 #item-row:hover{
 	background-color: #EDF3FE;
@@ -36,7 +38,7 @@ select{
 .menu-orders-nav {
     text-shadow: 0 -1px 0 rgba(0,0,0,.15);
     background-color: #417690;
-    border-color: #357ebd;
+    border-color: #eeeeee;
     box-shadow: 0 1px 0 rgba(255,255,255,.1);
 }
 
@@ -53,3 +55,14 @@ background-color: #417690;
 }
 
 .btn-lg { font-family: "Lucida Grande", Verdana, Arial, sans-serif; }
+
+.navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > .active > a:hover, 
+.navbar-inverse .navbar-nav > .active > a:focus{ 
+	color: #3a87ad;
+	background-color: #eeeeee;
+}
+
+.nav-tabs.nav-justified > .active > a {
+border-bottom-color: #eeeeee;
+}
