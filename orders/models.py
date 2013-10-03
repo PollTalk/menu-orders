@@ -9,7 +9,6 @@ class CategorizeItem(models.Model):
 
 	def __unicode__(self):
 		return self.category_name
-	
 
 class Item(models.Model):
 	""" This class defines the items listed in the menu list"""	
@@ -27,18 +26,14 @@ class Order(models.Model):
 	cost_of_order = models.IntegerField(default=0, db_index=True)
 	ordering_time = models.DateTimeField(auto_now_add=True)
 	
-
 	def __unicode__(self):
 		return u"Order made on %s" % self.ordering_time.strftime('%a, %d - %b - %Y, %H:%M:%S GMT')
-
-	def order_items(self):
-		return self.items.all()
-
 
 	class Meta:
 		verbose_name = u'Menu Order'
 
 class TakeOrder(models.Model):
+	""" This model class is an intermediary between Item and Order """
 	item = models.ForeignKey(Item)
 	order = models.ForeignKey(Order)
 	number_of_items = models.IntegerField(default=1)
