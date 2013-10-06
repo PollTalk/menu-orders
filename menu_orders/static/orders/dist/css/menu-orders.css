@@ -22,6 +22,8 @@ a:focus {outline : none;}
 	cursor: pointer;
 }
 
+#admin-link, #logout-link{color: #ffffff;}
+
 select{
 	margin: 2px 0;
 	padding: 4px 0px;

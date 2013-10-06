@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{%block title%} Welcome to the menu orders | Login {% endblock %}
+{% block content %}
+
+<div class="container">
+
+	{% if user.authenticated %}
+
+	{% endif %}
+	
+	<form class="form-signin" method="post" action="{% url 'orders:login' %}">
+		{% csrf_token %}
+		<h2 class="form-signin-heading">Please sign in</h2>
+		<input type="text" class="form-control" placeholder="Username" name="username" autofocus>
+		<input type="password" class="form-control" name="password" placeholder="Password">
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	</form> <!-- /container -->
+
+	{% if error_message %}
+		<div class="alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<ul>
+            	<li><strong><center><span class="glyphicon glyphicon-info-sign"></span> {{ error_message }}</center></strong></li>
+            </ul>
+        </div> 
+	{% endif %}
+
+</div>
+
+{% endblock %}

@@ -5,17 +5,38 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, RequestContext, loader 
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
 from .models import Item, CategorizeItem, Order, TakeOrder
 
 
 def index(request):
-	latest_items = Item.objects.order_by('-date_created')[:5]
-	template = loader.get_template('orders/index.html')
+	template = loader.get_template('orders/signin.html')
 	context = RequestContext(request, {
-        'latest_items': latest_items,
+		'error_message':'',
         })
 	return HttpResponse(template.render(context))
 
+def login_user(request):
+	if request.method == 'POST':
+		user = authenticate(username=request.POST['username'], password=request.POST['password'])
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect(reverse('orders:create_orders'))
+		else:
+			return render(request, 'orders/signin.html', 
+				{
+				'error_message':'Invalid Username/Password combination',
+				})
+
+def logout_user(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('orders:index'))
+
+@login_required(login_url='/orders/')
 def create_orders(request):
 	categories = CategorizeItem.objects.all()
 	errors = []
@@ -28,7 +49,7 @@ def create_orders(request):
  			order_saved = _handle_submitted_data(request)
  			if order_saved:
  				messages.info(request, 'The order was successfully sent')
- 			return HttpResponseRedirect('/')
+ 			return HttpResponseRedirect(reverse('orders:create_orders'))
  	else:
  		pass
  	variables = RequestContext(request,
@@ -63,6 +84,21 @@ def _handle_submitted_data(request):
 			number_of_items=request.POST.get(item.item+'_number')
 			) 
 	return take_order
+
+def view_total(request):
+	total_cost = 0
+	selected_orders = []
+	orders_id_list = request.GET['ids']
+	order_ids = orders_id_list.rsplit(',')
+	for pk in order_ids:
+		order = get_object_or_404(Order, pk=pk)
+		total_cost += order.cost_of_order
+		selected_orders.append(order)
+	return render(request, 'admin/orders_total.html', 
+				{
+				'selected_orders':selected_orders,
+				'total': total_cost
+				})
 
 # Make sure you fix the code below ASAP
 
