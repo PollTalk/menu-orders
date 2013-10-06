@@ -10,12 +10,16 @@
         <!-- Bootstrap -->
         <link rel="stylesheet" type="text/css" href="{% static 'orders/dist/css/bootstrap.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'orders/dist/css/sticky-footer.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'orders/dist/css/menu-orders.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'orders/dist/css/signin.css' %}" />
+    
+        <script src="{% static 'orders/dist/js/jquery.js' %}"></script>
 
         <title>{% block title%}{% endblock%}</title>
         <meta name="description" content="" />
         <meta name="author" content="HARRY" />
         <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="{% static 'orders/dist/img/favicon.png' %}" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     </head>
 
@@ -24,19 +28,24 @@
     <div id="wrap">
         <p>    
         {% block content %} {% endblock %}
-        </p>
     </div>
         {% block footer %}
-            <div id="footer">
+            <div id="footer" class="navbar-fixed-bottom">
                 <div class="container">                    
                     <p class="text-muted credit">
-                        <a href="/admin" class="text-muted credit">Admin</a>
-                       <small class=" pull-right">&copy; Copyright by <a href="https://github.com/HaroldAsiimwe">Roldy</a></small> 
-                    </p>
+                        <span class="label label-info">
+                           <a href="/admin" id="admin-link" target="_blank">Admin</a>
+                        </span>
+                       &nbsp; &nbsp;
+                       {% if user.is_authenticated %}
+                           <span class="label label-danger">
+                            <a href="{% url 'orders:logout_user' %}" id="logout-link">Logout</a>
+                           </span>
+                       {% endif %}
+                       <small class=" pull-right">&copy; Developed by <a href="https://github.com/HaroldAsiimwe" target="_blank">Roldy</a></small>
                 </div>
             </div>
         {% endblock %}
-        <script src="{% static 'orders/dist/js/jquery.js' %}"></script>
         <script src="{% static 'orders/dist/js/bootstrap.js' %}"></script>
         <script src="{% static 'orders/dist/js/bootstrap.min.js' %}"></script>
     </body>

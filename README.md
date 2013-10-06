@@ -3,7 +3,7 @@
 
 Welcome to the Menu Orders application
 
-Below you will find basic setup instructions for the ``project_name``
+Below you will find basic setup instructions for the ``Menu_Orders``
 project. To begin you should have the following applications installed on your
 local development system:
 

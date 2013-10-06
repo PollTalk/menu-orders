@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% load admin_urls %}
+{% load humanize %}
+{% load i18n %}
+
+{% block title %}{{ title }}{% trans 'Orders admin' %}{% endblock %}
+
+{% block branding %}
+	<h1 id="site-name">{% trans 'Orders and Menu administration' %}</h1>
+{% endblock %}
+
+ {% block content_title %} Selected Orders' Total {% endblock %}
+
+  {% block content %}
+	  {% if selected_orders %}
+	  <p></p>
+	  The total cost of the selected orders is <strong>{{ total| intcomma }} </strong>
+	  <hr>
+	    <ul>
+	    {% for order in selected_orders %}
+	        <li>{{ order }} | {{order.cost_of_order |intcomma}}</li> 
+	    {% endfor %}
+	    </ul>
+		{% else %}
+		    <p>No orders were selected.</p>
+		{% endif %}
+		<hr>
+		The total cost of the above selected orders is <strong>{{ total| intcomma }} </strong>
+
+
+  {% endblock %}
