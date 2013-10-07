@@ -11,7 +11,6 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from .models import Item, Category, Order, TakeOrder
 
-
 def index(request):
 	template = loader.get_template('orders/signin.html')
 	context = RequestContext(request, {
@@ -38,9 +37,8 @@ def logout_user(request):
 
 @login_required(login_url='/orders/')
 def create_orders(request):
-	categories = CategorizeItem.objects.all()
+	categories = Category.objects.all()
 	errors = []
-	success = ''
 	reciept = None
  	if request.method == 'POST':
  		if not request.POST.get('items', ''):
@@ -50,8 +48,7 @@ def create_orders(request):
  			if order_saved:
  				messages.info(request, 'The order was successfully sent')
  			return HttpResponseRedirect(reverse('orders:create_orders'))
- 	else:
- 		pass
+ 	
  	variables = RequestContext(request,
  	 {
  	 	'categories': categories,
