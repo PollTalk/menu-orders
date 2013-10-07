@@ -23,6 +23,13 @@
 	        <li>{{ order }} | {{order.cost_of_order |intcomma}}</li> 
 	    {% endfor %}
 	    </ul>
+	    <p>
+	    	{% if selected_orders|length > 1 %}
+	    	({{selected_orders|length }}) Menu Orders
+	    	{% else %}
+	    	({{selected_orders|length }}) Menu Order
+	    	{% endif %}
+	    </p>
 		{% else %}
 		    <p>No orders were selected.</p>
 		{% endif %}

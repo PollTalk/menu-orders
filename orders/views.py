@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout, authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .models import Item, Category, Order, TakeOrder
 
 def index(request):
@@ -20,6 +20,8 @@ def index(request):
 
 def login_user(request):
 	if request.method == 'POST':
+		if request.user.is_authenticated():
+			return HttpResponseRedirect(reverse('orders:create_orders'))
 		user = authenticate(username=request.POST['username'], password=request.POST['password'])
 		if user is not None:
 			if user.is_active:
@@ -82,6 +84,7 @@ def _handle_submitted_data(request):
 			) 
 	return take_order
 
+@permission_required('orders.change_order',login_url='/admin/')
 def view_total(request):
 	total_cost = 0
 	selected_orders = []
