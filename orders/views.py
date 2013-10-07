@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
-from .models import Item, CategorizeItem, Order, TakeOrder
+from .models import Item, Category, Order, TakeOrder
 
 
 def index(request):

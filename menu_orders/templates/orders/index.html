@@ -16,7 +16,7 @@
 		    </div>
 		    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 		      	<ul id="myTab" class="nav nav-tabs nav-justified navbar-nav">
-		      		<li><a href=""><h4><strong><span class="glyphicon glyphicon-list-alt"></span> Items</strong></h4></a></li>
+		      		<li><a href="" data-toggle="tooltip" title="Click to view all items"><h4><strong><span class="glyphicon glyphicon-list-alt"></span> Items</strong></h4></a></li>
 					{% for category in categories %}
 					<li><a href="#{{ category }}" data-toggle="tab"><h4><strong>{{ category|capfirst }}</strong></h4></a></li>
 				    {% empty %}
@@ -53,7 +53,7 @@
    			<ul>
    				<div class="row">
    				<li id="menu-header">
-   					<div class="col-md-4">Item</div><div class="col-md-4">Each Price</div><div class="col-md-4">Item No.</div>
+   					<div class="col-xs-6 col-sm-4 col-md-4">Item</div><div class="col-xs-6 col-sm-4 col-md-4">Each Price</div><div class="col-xs-6 col-sm-4 col-md-4">Item No.</div>
    				</li>
    				</div>
    			</ul>
@@ -66,13 +66,13 @@
 						<ul id="item-row">
 							<div class="row">
 							<li>
-								<div class="col-md-4">
+								<div class="col-xs-6 col-sm-4 col-md-4">
 									<label id="item-input">
 										<input type="checkbox" name="items" value="{{item.id }}"> {{ item|capfirst }}
 									</label>
 								</div>
-								 <div class="col-md-4"><label>{{ item.price_per_item | intcomma}}</label></div>
-									 <div class="col-md-4">
+								 <div class="col-xs-6 col-sm-4 col-md-4"><label>{{ item.price_per_item | intcomma}}</label></div>
+									 <div class="col-xs-6 col-sm-4 col-md-4">
 									 	<label>
 									 		<select name="{{ item }}_number">
 											<option value="1">1</option>
@@ -107,11 +107,9 @@
 		<center>
 		<div class="btn-group">	
 		<button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-upload"></span> Submit Order</button> 
-		<button type="reset" class="btn btn-warning  btn-lg"><span class="glyphicon glyphicon-minus-sign"></span> Clear Order</button> 
+		<button type="reset" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-minus-sign"></span> Clear Order</button> 
 		</div>
 		</center>
 		</div>
 	</form>
-
-	{{ sent_items }}
 {% endblock %}

@@ -14,7 +14,9 @@
   {% block content %}
 	  {% if selected_orders %}
 	  <p></p>
+	  <p>
 	  The total cost of the selected orders is <strong>{{ total| intcomma }} </strong>
+	  </p>
 	  <hr>
 	    <ul>
 	    {% for order in selected_orders %}
@@ -25,7 +27,8 @@
 		    <p>No orders were selected.</p>
 		{% endif %}
 		<hr>
+		<p>
 		The total cost of the above selected orders is <strong>{{ total| intcomma }} </strong>
-
+		</p>
 
   {% endblock %}

@@ -2,7 +2,7 @@
 
 from django.db import models
 
-class CategorizeItem(models.Model):
+class Category(models.Model):
 	"""categories definition"""
 	category_name = models.CharField(max_length=200)
 	date_added = models.DateTimeField(auto_now_add=True)
@@ -10,10 +10,13 @@ class CategorizeItem(models.Model):
 	def __unicode__(self):
 		return self.category_name
 
+	class Meta:
+		verbose_name_plural = u'Categories'
+
 class Item(models.Model):
 	""" This class defines the items listed in the menu list"""	
 	item = models.CharField(max_length=50, unique=True)
-	category = models.ForeignKey(CategorizeItem)
+	category = models.ForeignKey(Category)
 	price_per_item = models.IntegerField(db_index=True)
 	date_created = models.DateField(auto_now_add=True, blank=True)
 

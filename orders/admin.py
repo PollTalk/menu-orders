@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
-from .models import Item, Order, CategorizeItem, TakeOrder
+from .models import Item, Order, Category, TakeOrder
 
 def export_selected_objects(modeladmin, request, queryset):
 	selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
 	ct = ContentType.objects.get_for_model(queryset.model)
 	return HttpResponseRedirect("/export/?ct=%s&ids=%s" % (ct.pk, ",".join(selected)))
-export_selected_objects.short_description = "View the total of the cost order"
+export_selected_objects.short_description = "View the total cost of the selected orders"
 
 class TakeOrderInline(admin.TabularInline):
  	model = TakeOrder
@@ -30,6 +30,6 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Order, OrderAdmin)
-admin.site.register(CategorizeItem)
+admin.site.register(Category)
 
 
